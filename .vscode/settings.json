@@ -1,0 +1,22 @@
+{
+    "files.exclude": {
+        "node_modules": true,
+        ".*": true,
+        "jest.config.ts":true,
+        "jest.preset.js":true,
+        "nx.json":true,
+        "tools":true,
+        "tsconfig.base.json":true,
+        "README.md":true,
+    },
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true
+}
