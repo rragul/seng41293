@@ -4,10 +4,22 @@
     <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input matInput placeholder="abc@example.com" formControlName="email">
+        <mat-error *ngIf="emailCtrl.hasError('email') && !emailCtrl.hasError('required')">
+            Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="emailCtrl.hasError('required')">
+            Email is <strong>required</strong>
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
         <input matInput type="password" formControlName="password">
+        <mat-error *ngIf="passwordCtrl.hasError('required')">
+            Password is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="passwordCtrl.hasError('minlength')">
+            Password should be at least 6 characters
+        </mat-error>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="onLogin()">Login</button>
+    <button mat-raised-button color="primary" [disabled]="!formGroup.valid" (click)="onLogin()">Login</button>
 </form>

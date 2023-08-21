@@ -1,0 +1,10 @@
+<button mat-button (click)="toggle()">ToggleLoading</button>
+<br>
+<br>
+<div class="container">
+    <mat-form-field appearance="outline">
+        <mat-label>UserName</mat-label>
+        <input matInput placeholder="user name" [formControl]="userNameCtrl">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="updateName()">Update</button>
+</div>
