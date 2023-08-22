@@ -1,0 +1,12 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: gainsboro;
+    height: 100vh;
+}
+
+mat-card{
+    width: 100%;
+    margin: 10px;
+}

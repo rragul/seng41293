@@ -9,6 +9,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AppState } from './state/app/app.state';
 import { provideServiceWorker } from '@angular/service-worker';
 import { AngularFireModule } from '@angular/fire/compat';
+import { HttpClientModule } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,6 +28,7 @@ export const appConfig: ApplicationConfig = {
         appId: "1:509615949348:web:eec5fba34db4685d3a3ab1"
       }),
     ),
+    importProvidersFrom(HttpClientModule),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
