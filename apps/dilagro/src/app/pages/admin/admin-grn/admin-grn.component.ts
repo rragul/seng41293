@@ -21,9 +21,15 @@ export class AdminGrnComponent {
   @Input({ required: true }) label!: string;
   @Output() update = new EventEmitter<string>();
 
+  userName$: Observable<string | undefined>;
   userNameCtrl = new FormControl();
 
   constructor(private store: Store) {
+    this.userName$ = this.store.select(AppState.userName);
+    this.userName$.subscribe(userName => {
+      console.log('UserName:', userName);
+      this.userNameCtrl.setValue(userName);
+    });
   }
   toggle() {
     const currentLoadingState = this.store.selectSnapshot(AppState.loading);

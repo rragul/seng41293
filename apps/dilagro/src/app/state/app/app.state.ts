@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, Selector, State, StateContext} from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { ShowLoading, UpdateUserName } from './app.actions';
 
 export interface AppStateModel {
@@ -16,14 +16,14 @@ export interface AppStateModel {
 @Injectable({ providedIn: 'root' })
 
 export class AppState {
-    @Selector() static loading(state: AppStateModel) { 
-        return state.loading; 
+    @Selector() static loading(state: AppStateModel) {
+        return state.loading;
     }
-    
+
     @Selector() static userName(state: AppStateModel) {
         return state.userName;
     }
-    
+
     @Action(ShowLoading)
     showLoading(
         { patchState }: StateContext<AppStateModel>,
