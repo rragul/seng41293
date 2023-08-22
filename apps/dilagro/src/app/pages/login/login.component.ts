@@ -5,6 +5,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Store } from '@ngxs/store';
+import { UpdateUser } from '../../state/app/app.actions';
+import { catchError, from, tap } from 'rxjs';
 
 @Component({
   selector: 'seng41293-login',
@@ -24,20 +27,44 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private angularFireAuth: AngularFireAuth
+    private angularFireAuth: AngularFireAuth,
+    private store: Store
   ) { }
 
   async onLogin() {
     const email = this.formGroup.get('email')?.value as string;
     const password = this.formGroup.get('password')?.value as string;
+    const authPromis = this.angularFireAuth.signInWithEmailAndPassword(email, password);
 
-    try {
-      await this.angularFireAuth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/admin']);
-    } catch (error) {
-      // Handle login error
-      this.error = 'Login failed. Please check your credentials.';
-      console.error(error);
-    }
+    from(authPromis)
+      .pipe(
+        tap((c) => {
+          if (c.user) {
+            this.store.dispatch(new UpdateUser(c.user));
+          }
+        }),
+        tap(() => this.router.navigate(['/admin'])),
+        catchError((error) => {
+          this.error = 'Login failed. Please check your credentials.';
+          console.error(error);
+          return error;
+        }
+        )
+      )
+      .subscribe();
+
+    // try {
+    //   await this.angularFireAuth.signInWithEmailAndPassword(email, password)
+    //     .then((c) => {
+    //       if (c.user) {
+    //         this.store.dispatch(new UpdateUser(c.user));
+    //       }
+    //       this.router.navigate(['/admin']);
+    //     });
+    // } catch (error) {
+    //   // Handle login error
+    //   this.error = 'Login failed. Please check your credentials.';
+    //   console.error(error);
+    // }
   }
 }
