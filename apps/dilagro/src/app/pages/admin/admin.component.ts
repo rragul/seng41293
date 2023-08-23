@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AdminGrnComponent } from './admin-grn/admin-grn.component';
 import { AdminDashbordComponent } from './admin-dashbord/admin-dashbord.component';
+import { AdminDailyComponent } from './admin-daily/admin-daily.component';
 
 @Component({
   selector: 'seng41293-admin',
   standalone: true,
-  imports: [CommonModule, MatTabsModule, AdminGrnComponent, AdminDashbordComponent],
+  imports: [CommonModule, MatTabsModule, AdminGrnComponent, AdminDailyComponent, AdminDashbordComponent],
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
