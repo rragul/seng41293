@@ -1,7 +1,36 @@
-.container{
+// .container{
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     padding-left: 20px;
+
+// }
+:host{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-left: 20px;
+    align-items: center;
+    background-color: gainsboro;
+    height: 100vh;
+}
 
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // height: 100vh;
+    padding-top: 20px;
+    width: 100%;
+}
+
+mat-form-field{
+    width: 90%;
+}
+
+hr{
+    width: 90%;
+}
+
+mat-card {
+    width: 90%;
+    margin: 10px;
 }

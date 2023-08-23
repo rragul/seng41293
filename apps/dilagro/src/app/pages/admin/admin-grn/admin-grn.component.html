@@ -1,4 +1,5 @@
-<button mat-button (click)="toggle()">ToggleLoading</button>
+<!-- update user name -->
+<!-- <button mat-button (click)="toggle()">ToggleLoading</button>
 <br>
 <br>
 <div class="container">
@@ -8,4 +9,30 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" (click)="updateName()">Update</button>
-</div>
+</div> -->
+<form [formGroup]="grnFormGroup">
+    <mat-form-field>
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" [formControl]="dateCtrl">
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]="nameCtrl">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Phone</mat-label>
+        <input type="number" matInput [formControl]="phoneCtrl" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="save()">Save</button>
+</form>
+<hr>
+<mat-card class="mat-elevation-z4" *ngFor="let grn of grns$ | async">
+    <mat-card-header>
+        <mat-card-title>Name: {{grn.customer.name}}</mat-card-title>
+        <mat-card-subtitle>Phone: {{grn.customer.phone}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>Date: {{grn.date.toDate() | date}}</mat-card-content>
+</mat-card>
