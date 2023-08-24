@@ -1,1 +1,7 @@
-{{ dailyStock$ | async | json}}
+<div>
+    <ul>
+        <li *ngFor="let daily of dailyStock$ | async">
+            {{daily.date | date}} - {{daily.amount}}
+        </li>
+    </ul>
+</div>

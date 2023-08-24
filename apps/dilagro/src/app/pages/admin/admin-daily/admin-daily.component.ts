@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DailyStockService } from '../../../services/daily-stock/daily-stock.service';
 import { Observable } from 'rxjs';
+import { IDailyStock } from '@seng41293/model/model';
 
 @Component({
   selector: 'seng41293-admin-daily',
@@ -12,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminDailyComponent {
 
-  dailyStock$: Observable<any>;
+  dailyStock$: Observable<IDailyStock[]>;
   constructor(private dailyStockService: DailyStockService) {
     this.dailyStock$ = dailyStockService.findAll();
   }
