@@ -20,11 +20,11 @@ export class AdminDashbordComponent {
   @Input({ required: true }) label!: string;
   @Output() update = new EventEmitter<string>();
 
-  users$: Observable<User[]>;
+  // users$: Observable<User[]>;
 
   constructor(private http: HttpClient) {
-    this.users$ = this.http
-      .get<User[]>('https://jsonplaceholder.typicode.com/users');
+    // this.users$ = this.http
+    //   .get<User[]>('https://jsonplaceholder.typicode.com/users');
   }
 
 }
