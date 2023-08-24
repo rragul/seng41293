@@ -1,42 +1,40 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { User } from '../entities/user.entity';
+import { User } from '../schema/user.schema';
+import bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  constructor(@InjectModel(User.name) private readonly userModel: Model<User>) { }
+
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const { password, ...rest } = createUserDto;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new this.userModel({
+      ...rest,
+      password: hashedPassword,
+    });
+
+    return newUser.save();
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
-
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: '123456',
-      email: 'jhon@abc.com'
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: '123456',
-      email: 'maria@abc.com'
-    },
-  ];
 
   async findOne(email: string): Promise<User | undefined> {
-    return this.users.find(user => user.email === email);
+    return this.userModel.findOne({ email }).exec();
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
+    return this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number): Promise<User | null> {
+    return this.userModel.findByIdAndDelete(id).exec();
   }
 }
