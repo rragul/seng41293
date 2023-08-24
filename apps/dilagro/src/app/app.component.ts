@@ -18,12 +18,13 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title = 'WORLD';
   frameworks = ['Anguler', 'React', 'Vue'];
-  // userName$: Observable<string | undefined>;
+  userName$: Observable<string | undefined>;
   loading$: Observable<boolean>;
   email$: Observable<string | undefined | null>;
 
   constructor(private store: Store) {
     this.email$ = this.store.select(AppState.email);
     this.loading$ = this.store.select(AppState.loading);
+    this.userName$ = this.store.select(AppState.userName);
   }
 }

@@ -12,3 +12,8 @@ export class UpdateUser {
     public static readonly type = '[App] UpdateUser';
     constructor(public user: firebase.default.User) { }
 }
+
+export class Login {
+    public static readonly type = '[App] Login';
+    constructor(public email: string | null | undefined, public password: string | null | undefined) { }
+}

@@ -3,8 +3,8 @@
     <span class="spacer"></span>
     <!-- <button mat-button routerLink="/login">Login</button>
     <button mat-button routerLink="/register">Register</button> -->
-    <ng-container *ngIf="email$ | async as email">
-        <span>Hi {{ email }}</span>
+    <ng-container *ngIf="userName$ | async as username">
+        <span>Hi {{ username }}</span>
     </ng-container>
 </mat-toolbar>
 <mat-progress-bar *ngIf="loading$ | async" mode="indeterminate"></mat-progress-bar>

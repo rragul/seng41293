@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { ShowLoading, UpdateUserName, UpdateUser } from './app.actions';
-import { of } from 'rxjs';
+import { ShowLoading, UpdateUserName, UpdateUser, Login } from './app.actions';
+import { of, tap } from 'rxjs';
+import { AuthService } from '../../services/auth/auth.service';
 
 export interface AppStateModel {
     loading: boolean;
@@ -9,7 +10,7 @@ export interface AppStateModel {
         email: string;
     },
     userName?: string;
-    token?: string;
+    access_token?: string;
 }
 
 @State<AppStateModel>({
@@ -31,6 +32,8 @@ export class AppState {
     @Selector() static userName(state: AppStateModel) {
         return state.userName;
     }
+
+    constructor(private authService: AuthService) { }
 
     @Action(ShowLoading)
     showLoading(
@@ -58,6 +61,21 @@ export class AppState {
         { userName }: UpdateUserName
     ) {
         return patchState({ userName });
+    }
+
+    @Action(Login)
+    Login(
+        { patchState }: StateContext<AppStateModel>,
+        { email, password }: Login
+    ) {
+        return this.authService.signIn(email, password).pipe(
+            tap((response: any) => {
+                patchState({
+                    access_token: response.access_token,
+                    userName: response.username
+                });
+            })
+        );
     }
 }
 
