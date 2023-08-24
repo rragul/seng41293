@@ -71,6 +71,16 @@ export class LoginComponent {
   // }
   onLogin() {
     const value = this.formGroup.value;
-    this.store.dispatch(new Login(value.email, value.password));
+    const success = this.store.dispatch(new Login(value.email, value.password));
+    success.subscribe((c) => {
+      if (c.user) {
+        this.store.dispatch(new UpdateUser(c.user));
+      }
+      this.router.navigate(['/admin']);
+    }, (error) => {
+      this.error = 'Login failed. Please check your credentials.';
+      console.error(error);
+    }
+    );
   }
 }
